@@ -1,0 +1,44 @@
+Node has an APIs:
+- Node CLI
+- Cardano API
+
+URLs:
+https://github.com/mallapurbharat/cardano-tx-sample/blob/main/1_native_exercises/1_simple/exercise1-simpletxfer.md
+https://github.com/EmurgoFaculty/EA_NativeScripting
+https://able-pool.io/document
+docs.cardano.org/cardano-testnet/tools/faucet -- used to send ADA to testnet address
+
+Robertos address:
+addr_test1qp65draw5za4msm4sqp9wtv4yejvehecceml20cc6waewrjfqx4dgsjqxh2gql7zjr2776l3thnxgtcvjg3cm8dad3lqn484e6
+
+**************************************************************
+*** CLI Commands
+**************************************************************
+** help
+cardano-cli --help
+
+** creating keypairs #1
+cardano-cli address key-gen --verification-key-file payment1.vkey --signing-key-file payment1.skey
+cardano-cli stake-address key-gen --verification-key-file stake1.vkey --signing-key-file stake1.skey
+
+** build address #1
+cardano-cli address build \
+--payment-verification-key-file payment1.vkey \
+--stake-verification-key-file stake1.vkey \
+--out-file testnet1.addr \
+--testnet-magic 2
+
+** creating keypairs #2
+cardano-cli address key-gen --verification-key-file payment2.vkey --signing-key-file payment2.skey
+cardano-cli stake-address key-gen --verification-key-file stake2.vkey --signing-key-file stake2.skey
+
+** build address #2
+cardano-cli address build \
+--payment-verification-key-file payment2.vkey \
+--stake-verification-key-file stake2.vkey \
+--out-file testnet2.addr \
+--testnet-magic 2
+
+**query testnet1.addr after sending ADA coins using faucet (docs.cardano.org/cardano-testnet/tools/faucet)
+cardano-cli query utxo --address "$(cat ./testnet1.addr)" --testnet-magic 2
+cardano-cli query utxo --address "$(cat ./testnet2.addr)" --testnet-magic 2

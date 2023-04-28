@@ -10,33 +10,56 @@ Robertos address:
 addr_test1qp65draw5za4msm4sqp9wtv4yejvehecceml20cc6waewrjfqx4dgsjqxh2gql7zjr2776l3thnxgtcvjg3cm8dad3lqn484e6
 
 **************************************************************
-*** CLI Commands for creating 2 key pairs
+*** CLI Commands for creating key pairs
 **************************************************************
 ** help
 cardano-cli --help
 
 ** 1) create a folder 'keys' and navigate into this folder
 ** 2) navigate into the keys folder
-** 3) create keypairs #1
+** 3) 
+** a) create keypairs #1
 cardano-cli address key-gen --verification-key-file payment1.vkey --signing-key-file payment1.skey
 cardano-cli stake-address key-gen --verification-key-file stake1.vkey --signing-key-file stake1.skey
 
-** 4) build address #1
+** b) build address #1
 cardano-cli address build \
 --payment-verification-key-file payment1.vkey \
 --stake-verification-key-file stake1.vkey \
 --out-file testnet1.addr \
 --testnet-magic 2
 
-** 5) create keypairs #2
+** c) create keypairs #2
 cardano-cli address key-gen --verification-key-file payment2.vkey --signing-key-file payment2.skey
 cardano-cli stake-address key-gen --verification-key-file stake2.vkey --signing-key-file stake2.skey
 
-** 6) build address #2
+** d) build address #2
 cardano-cli address build \
 --payment-verification-key-file payment2.vkey \
 --stake-verification-key-file stake2.vkey \
 --out-file testnet2.addr \
+--testnet-magic 2
+
+** e) create keypairs #3
+cardano-cli address key-gen --verification-key-file payment3.vkey --signing-key-file payment3.skey
+cardano-cli stake-address key-gen --verification-key-file stake3.vkey --signing-key-file stake3.skey
+
+** f) build address #3
+cardano-cli address build \
+--payment-verification-key-file payment3.vkey \
+--stake-verification-key-file stake3.vkey \
+--out-file testnet3.addr \
+--testnet-magic 2
+
+** g) create keypairs #4
+cardano-cli address key-gen --verification-key-file payment4.vkey --signing-key-file payment4.skey
+cardano-cli stake-address key-gen --verification-key-file stake4.vkey --signing-key-file stake4.skey
+
+** h) build address #4
+cardano-cli address build \
+--payment-verification-key-file payment4.vkey \
+--stake-verification-key-file stake4.vkey \
+--out-file testnet4.addr \
 --testnet-magic 2
 
 ** 7) navigate to docs.cardano.org/cardano-testnet/tools/faucet and send 10000 ADA to testnet1.addr

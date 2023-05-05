@@ -6,3 +6,4 @@ Cardano Developer Professional Program
 - https://github.com/EmurgoFaculty/EA_NativeScripting
 - https://able-pool.io/document
 - https://docs.cardano.org/cardano-testnet/tools/faucet -- used to send ADA to testnet address
+- https://iohk.io/en/blog/posts/2021/02/25/babel-fees/

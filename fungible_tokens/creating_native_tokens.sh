@@ -1,19 +1,19 @@
-# Native tokens
+# Native fungible tokens
 # From Mary/Allegra fork onwards, Cardano has a "Multi-Asset ledger"
 # We now have the ability to mint native tokens
 # Token: Digital representation of a real world asset
 
-# Tokenname; must be base16 encoded
-tokenname1=$(echo -n "DF-Token" | xxd -ps | tr -d '\n') 
-tokenamount="10000000"
-output="0"
-
 cardano-cli query utxo --address $(cat testnet4.addr) $TESTNET
+
 address=$(cat ./testnet4.addr)
 utxoin="d3f3fd398b69279256d59c82dc6456ab9f8f074e23ec6d973f9c2a62a1884875#0"
 funds="999821431"
 policyid=$(cat ../policy/policyID)
 fee="300000"
+# Tokenname; must be base16 encoded
+tokenname1=$(echo -n "DF-Token" | xxd -ps | tr -d '\n') 
+tokenamount="10000000"
+output="0"
 
 mkdir policy
 

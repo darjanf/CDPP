@@ -1,4 +1,4 @@
-# sending non fungible tokens to daedalus wallet
+# Sending non fungible tokens to daedalus wallet
 
 cardano-cli query utxo --address $(cat testnet3.addr) $TESTNET
 

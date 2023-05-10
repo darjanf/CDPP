@@ -1,0 +1,18 @@
+{
+    "721": {
+        "4af2de4cd67c06d8dcd3547987c2ac5cef5767ed7538b1a68872a648": {
+          "NFT1": {
+            "description": "This is my first NFT thanks to EMURGO Academy",
+            "name": "EMURGO NFT guide token",
+            "id": 1,
+            "image": "ipfs://QmRhTTbUrPYEw3mJGGhQqQST9k86v1DPBiTTWJGKDJsVFw"
+          },
+          "NFT2": {
+            "description": "This is my second NFT thanks to EMURGO Academy",
+            "name": "EMURGO NFT guide token",
+            "id": 2,
+            "image": "ipfs://QmRhTTbUrPYEw3mJGGhQqQST9k86v1DPBiTTWJGKDJsVFw"
+          }
+        }
+    }
+}

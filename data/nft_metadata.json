@@ -12,7 +12,13 @@
             "name": "EMURGO NFT guide token",
             "id": 2,
             "image": "ipfs://QmRhTTbUrPYEw3mJGGhQqQST9k86v1DPBiTTWJGKDJsVFw"
-          }
+          },
+          "NFT3": {
+            "description": "This is my third NFT thanks to EMURGO Academy",
+            "name": "EMURGO NFT guide token",
+            "id": 3,
+            "image": "ipfs://QmYbBNBijNvyogiyG2xf6pmBNTsgHJDAC7QaCMFDMmFXv3"
+          }         
         }
     }
 }

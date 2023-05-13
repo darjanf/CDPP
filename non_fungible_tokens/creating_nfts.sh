@@ -2,12 +2,11 @@
 
 cardano-cli query utxo --address $(cat testnet3.addr) $TESTNET
 
-realtokenname="NFT2"
+realtokenname="NFT3"
 tokenname=$(echo -n $realtokenname | xxd -ps | tr -d '\n')
 tokenamount="1"
 fee="0"
 output="0"
-ipfs_hash="ipfs://QmRhTTbUrPYEw3mJGGhQqQST9k86v1DPBiTTWJGKDJsVFw"
 address=$(cat ./testnet3.addr)
 
 cardano-cli address key-gen \
@@ -52,7 +51,7 @@ cardano-cli transaction policyid --script-file ../policy/nft_policy.script > ../
 # }
 
 era="--babbage-era"
-utxoin="e1dffa7cacb5835b912440bc95af042d0278cb2ffa8bd3fb68b840a2077fcf58#0"
+utxoin="6862b2340870710f16c8dd36b42843a26a3541b856e551f4bc56fe02bb6f2879#1"
 utxoin2="e1dffa7cacb5835b912440bc95af042d0278cb2ffa8bd3fb68b840a2077fcf58#1"
 policyid=$(cat ../policy/nft_policyID)
 output=1400000
@@ -61,7 +60,6 @@ script="../policy/nft_policy.script"
 cardano-cli transaction build \
 $era \
 --tx-in $utxoin \
---tx-in $utxoin2 \
 --tx-out $address+$output+"$tokenamount $policyid.$tokenname" \
 --change-address $address \
 --mint="$tokenamount $policyid.$tokenname" \
@@ -70,7 +68,6 @@ $era \
 --witness-override 2 \
 --out-file matx.raw $TESTNET
 #--invalid-hereafter $slotnumber \
-
 
 cardano-cli transaction sign  \
 --signing-key-file payment3.skey  \

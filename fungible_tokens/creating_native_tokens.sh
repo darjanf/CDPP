@@ -3,11 +3,11 @@
 # We now have the ability to mint native tokens
 # Token: Digital representation of a real world asset
 
-cardano-cli query utxo --address $(cat testnet4.addr) $TESTNET
+cardano-cli query utxo --address $(cat testnet3.addr) $TESTNET
 
-address=$(cat ./testnet4.addr)
-utxoin="d3f3fd398b69279256d59c82dc6456ab9f8f074e23ec6d973f9c2a62a1884875#0"
-funds="999821431"
+address=$(cat ./testnet3.addr)
+utxoin="6862b2340870710f16c8dd36b42843a26a3541b856e551f4bc56fe02bb6f2879#1"
+funds="2994318164"
 policyid=$(cat ../policy/policyID)
 fee="300000"
 # Tokenname; must be base16 encoded
@@ -102,3 +102,5 @@ $TESTNET \
 --out-file rec_matx.signed
 
 cardano-cli transaction submit --tx-file rec_matx.signed $TESTNET
+
+cardano-cli query utxo --address $(cat testnet4.addr) $TESTNET

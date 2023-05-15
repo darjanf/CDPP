@@ -4,7 +4,10 @@ KEYHASH1=$(cardano-cli address key-hash --payment-verification-key-file payment1
 KEYHASH2=$(cardano-cli address key-hash --payment-verification-key-file payment2.vkey)
 KEYHASH3=$(cardano-cli address key-hash --payment-verification-key-file payment3.vkey)
 
-cardano-cli address build --payment-script-file ./multisigpolicy.script $TESTNET --out-file ./multisig.addr
+cardano-cli address build \
+--payment-script-file ./multisigpolicy.script \
+$TESTNET \
+--out-file ./multisig.addr
 
 cardano-cli transaction build \
 --babbage-era \

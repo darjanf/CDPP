@@ -1,0 +1,23 @@
+## UTXO Model - Unspend Transaction Output Model
+UTXOs are unspend transaction outputs from a previous transaction, that happened on the blockchain and have not yet been spent.
+
+## EUTxO - Extended Unspend Transaction Oputput Model
+The validation that decides wheter the transaction (that this input belongs to) is allowed to consume that utxo. The smiple UTXO model relies on digital signatures. For "Alice" to spend an UTXO she needs to sign the transaction.
+The idea of the EUTxO Model is to make this validation process more general. So instead of having only one condition, having the appropriate signature in the transaction, we replace this by arbitrary logic, and this is where Plutus comes in.
+in the EUTXO Model, instead of a public-key-address, there will be an arbitrary script (containing arbitrary logic) and instead the signature in the transaction, the input will justify that it is allowed to consume this UTXO with some arbitrary piece of data that we call the Redeemer.
+So we replace the public key by a script and we replace the digital signature by a redeemer, which is an arbitrary piece of data.
+So what does this exactly mean?
+In Bitcoin, the only data a script sees, is the redeemer that. In Bitcoin, there are also smart contracts available, but they are not very smart, they are called "Bitcoin Script". So when validation a transaction, the scripts gets as input an redeemer and checks, if whithin the script, if the utxo can be consumed or not.
+Ethereum uses a different concept. In Ethereum, the script basically can see the whole state of the blockchain. So that's like the opposite extreme of Bitcoin.
+So what Cardano does, is something in the middle between Bitcoin and Ethereum. In Cardano, the script can't see the whole state of the whole blockchain, but it can see the whole transaction-data itself (that is beeing validated), the redeemer-data, all other inputs of the transaction and also all oputputs of that transaction. Plutus script can use that information to decide whether it is ok to consume the output.
+There is one last ingredient that Plutus scripts need in order to be as powerful as expressive as ethereum scripts and that is the so-called "Datum". Datum is a piece of Data, that can be associated with a utxo in addition to the value.
+With this you can mathematicaly proof, that at least everything that can be expressed in Ethereum, can also be expressed with Plutus scripts, but it has a lot of important advantages in comparison to the ethereum model. For example in Plutus it is possible to check whether a transaction will validate in your wallet, before you ever send it to the chain. So something can still go wrong, for example your transaction can consume an output an then when it gets to the chain, somebody else has already consumed that output (this output has been consumed already by an other transaction). But in that case, your transaction will simply fail without you having to pay any fees. But if the inputs are still there that your transaction expects, then you can be sure that the transaction will be validated and that it will have the effect that you predicted when you run it in your wallet. In Ethereum, this is definitely not the case.
+
+## UTXO Datum
+The Datum is part of an Transaction Output, so it's the responsibility of the producing transaction to supply the Datum. There are 3 ways to attach Datum to a Transaction Output:
+# 1. The Ouput contains only the Hash of the Datum, not the Datum itself. 
+The consuming transaction, that wants to spend this script output has to contain the actual Datum. This is the cheapest option for the producing transaction because the hash is quite small so the transaction is smaller because it doesn't contain the actual datum value. However, it makes it difficult to consume this UTXO, because the consumer has to provide the Datum and the Datum is not saved anywhere on the blockchain.
+# 2. The Output contains only the Hash of the Datum, but the Transaction itself contains the Datum in its Body
+This makes the Transaction bigger and therefore more expensive, bit it also puts the actual Datum value on to the blockchain, so that other parties can look it up and then potentially spent this UTXO. However, it is not completely convinient, because the cardano node only sees this datum value during the validation process but then forgets about the Datum. So for somebody else to later discover the Datum on the blockchain, another tool is needed, something like a chain indexer or dbsync. 
+# 3. The Output itself contains the Datum (Inline-Datum)
+The Transaction-Body doesn't need to contain the Datum. The consumer does not need to provide the Datum. In this case, the consuming transaction is smaller and cheaper.

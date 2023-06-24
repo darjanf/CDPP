@@ -1,0 +1,2 @@
+#!/bin/bash
+cardano-cli query utxo --address addr_test1vrzqxscsmwr59gxys5uuy64f3yx3p9seyhlum6w7g5zcrnqtvp769 --testnet-magic 2

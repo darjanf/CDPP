@@ -1,0 +1,1 @@
+cardano-cli transaction policyid --script-file ./validators/handson0007.plutus > ./validators/handson0007.policy

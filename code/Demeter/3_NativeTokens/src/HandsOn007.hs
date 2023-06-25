@@ -22,24 +22,25 @@ import           Prelude                (IO)
 
 -- ON-CHAIN CODE
 
-
 {-# INLINABLE darjanCoins #-}
-darjanCoins :: BuiltinData -> ScriptContext -> Bool
-darjanCoins _ sContext = traceIfFalse ("Only Alice and Bob are allowed to mint!") checkSignaturePassed
+darjanCoins :: () -> ScriptContext -> Bool
+darjanCoins _ sContext = traceIfFalse "Incorrect Signatures!" (checkSignaturePassed)
     where
         info :: TxInfo
         info = scriptContextTxInfo sContext
 
-        -- PKH of Alice and Bob
-        pkhList :: [PubKeyHash]
-        pkhList = ["c4034310db8742a0c48539c26aa9890d10961925ffcde9de450581cc","d70540296a8155451197472f28ab6c5c4e9830d5c2f1b615307ed10b"]
+        conditions :: [PubKeyHash]
+        conditions = [
+            (PubKeyHash "c4034310db8742a0c48539c26aa9890d10961925ffcde9de450581cc"), -- PKH alice
+            (PubKeyHash "d70540296a8155451197472f28ab6c5c4e9830d5c2f1b615307ed10b")  -- PKH bob
+            ]
 
         checkSignaturePassed :: Bool
-        checkSignaturePassed = any (\x -> txSignedBy info x) pkhList   
+        checkSignaturePassed = any (\x -> txSignedBy info $ x) conditions
 
 {-# INLINABLE wrappedDarjanCoinPolicy #-}
 wrappedDarjanCoinPolicy :: BuiltinData -> BuiltinData -> ()
-wrappedDarjanCoinPolicy = wrapPolicy darjanCoins
+wrappedDarjanCoinPolicy = wrapPolicy $ darjanCoins
 
 darjanCoinPolicy :: MintingPolicy
 darjanCoinPolicy = mkMintingPolicyScript $$(PlutusTx.compile [|| wrappedDarjanCoinPolicy ||])
@@ -47,7 +48,7 @@ darjanCoinPolicy = mkMintingPolicyScript $$(PlutusTx.compile [|| wrappedDarjanCo
 -- Serialised Scripts and Values 
 
 saveDarjanCoinPolicy :: IO ()
-saveDarjanCoinPolicy = writePolicyToFile "./validators/handson007.plutus" darjanCoinPolicy
+saveDarjanCoinPolicy = writePolicyToFile "./validators/handson0007.plutus" darjanCoinPolicy
 
 saveUnit :: IO ()
 saveUnit = writeDataToFile "./data/unit.json" ()

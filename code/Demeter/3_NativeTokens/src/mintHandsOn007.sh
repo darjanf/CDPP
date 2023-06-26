@@ -1,7 +1,7 @@
-utxoin="528bb9bcbaf1f52abe4d45718f2fde3d494eeb71c724b63eff8c3dd92b3c5fd9#0"
-collateral="6d75e477259a6179977c0ebd601540c7a7f083c2f934c885ffabb141c39dfccb#0"
+utxoin="e972760e5300f9f25ce5016a93b521c6c54bfe1a1aa060d05e3db098d1d6998c#1"
+collateral="e972760e5300f9f25ce5016a93b521c6c54bfe1a1aa060d05e3db098d1d6998c#1"
 address=$(cat /workspace/keys/alice.addr)
-output="429000000"
+output="10000000"
 tokenamount="10"
 policyid=$(cat /workspace/code/Demeter/3_NativeTokens/validators/handson0007.policy)
 tokenname="4461726A616E436F696E"
@@ -13,12 +13,18 @@ txsignedfile="/workspace/code/Demeter/3_NativeTokens/txoutputs/mintHandsOn0007.s
 txwitnesscount=2
 signingkeyfile_alice="/workspace/keys/alice.skey"
 signingkeyfile_bob="/workspace/keys/bob.skey"
+signingkeyfile_claire="/workspace/keys/claire.skey"
 redeemerfile="/workspace/code/Demeter/3_NativeTokens/data/unit.json"
 paramsfile="/workspace/data/protocolparams.json"
 txwitnessfile_alice="/workspace/code/Demeter/3_NativeTokens/txoutputs/mintHandsOn0007_alice.witness"
 txwitnessfile_bob="/workspace/code/Demeter/3_NativeTokens/txoutputs/mintHandsOn0007_bob.witness"
-signerPKH1=$(cat /workspace/keys/alice.pkh)
-signerPKH2=$(cat /workspace/keys/bob.pkh)
+txwitnessfile_claire="/workspace/code/Demeter/3_NativeTokens/txoutputs/mintHandsOn0007_claire.witness"
+signerPKHCollateral_alice=$(cat /workspace/keys/alice.pkh)
+signerPKHCollateral_bob=$(cat /workspace/keys/bob.pkh)
+signerPKHCollateral_claire=$(cat /workspace/keys/claire.pkh)
+
+# deleted lines
+#   
 
 cardano-cli transaction build \
   --babbage-era \
@@ -26,8 +32,8 @@ cardano-cli transaction build \
   --tx-in $utxoin \
   --minting-script-file $validatorfile \
   --mint-redeemer-file $redeemerfile \
-  --required-signer-hash $signerPKH1 \
-  --required-signer-hash $signerPKH2 \
+  --required-signer-hash $signerPKHCollateral_alice \
+  --required-signer-hash $signerPKHCollateral_claire \
   --tx-in-collateral $collateral \
   --tx-out "$address+$output+$tokenamount $policyid.$tokenname" \
   --change-address $changeaddress \
@@ -36,6 +42,7 @@ cardano-cli transaction build \
   --witness-override $txwitnesscount \
   --out-file $txunsignedfile
 
+: <<'END'
 cardano-cli transaction witness \
   --signing-key-file $signingkeyfile_alice \
   --tx-body-file $txunsignedfile  \
@@ -52,6 +59,14 @@ cardano-cli transaction assemble \
   --witness-file $txwitnessfile_bob \
   --out-file $txsignedfile
 
+cardano-cli transaction sign \
+    --tx-body-file $txunsignedfile \
+    --signing-key-file $signingkeyfile_alice \
+    $PREVIEW \
+    --out-file $txsignedfile
+
 cardano-cli transaction submit \
   --tx-file $txsignedfile \
   $PREVIEW
+
+END

@@ -20,6 +20,7 @@ library
                     , plutus-ledger-api
                     , serialise
                     , Utilities
+    default-extensions:   OverloadedStrings
                     
     hs-source-dirs:   src
     default-language: Haskell2010

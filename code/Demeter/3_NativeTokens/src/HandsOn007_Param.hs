@@ -47,7 +47,7 @@ signedPolicy pkhlist = mkMintingPolicyScript $ signedCode `applyCode` liftCode (
 -- PKH alice and bob = ["c4034310db8742a0c48539c26aa9890d10961925ffcde9de450581cc", "d70540296a8155451197472f28ab6c5c4e9830d5c2f1b615307ed10b"]
 -- To serialize the validtor file you to run cabal repl and create the following variable:
 -- import Plutus.V2.Ledger.Api
--- pkhlist = [PubKeyHash "6334303334333130646238373432613063343835333963323661613938393064313039363139323566666364653964653435303538316363", PubKeyHash "6437303534303239366138313535343531313937343732663238616236633563346539383330643563326631623631353330376564313062"]
+-- pkhlist = ["c4034310db8742a0c48539c26aa9890d10961925ffcde9de450581cc", "d70540296a8155451197472f28ab6c5c4e9830d5c2f1b615307ed10b"]
 -- Then calling the method "saveSignedPolicy" and using the variable "pkhlist" as parameter: saveSignedPolicy pkhlist
 
 saveSignedPolicy :: [PubKeyHash] -> IO ()

@@ -1,0 +1,1 @@
+cardano-cli transaction policyid --script-file ./collateral.plutus > ./collateral.policy

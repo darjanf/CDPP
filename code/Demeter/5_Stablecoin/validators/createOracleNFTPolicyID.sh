@@ -1,0 +1,1 @@
+cardano-cli transaction policyid --script-file ./oracleNFT.plutus > ./oracleNFT.policy

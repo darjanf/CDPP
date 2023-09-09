@@ -1,0 +1,1 @@
+cardano-cli address build --payment-script-file collateral.plutus --testnet-magic 2 --out-file collateral.addr

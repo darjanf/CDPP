@@ -1,0 +1,31 @@
+cabal-version:      2.4
+name:               Stablecoin
+version:            0.1.0.0
+license:            MIT
+license-file:       LICENSE
+author:             Darjan Fikic
+maintainer:         d.fikic@icloud.com
+category:           SmartContract
+build-type:         Simple
+extra-source-files: CHANGELOG.md
+
+library
+    exposed-modules:  OracleNFT
+                      PriceFeedOracle
+                      Collateral
+                      Minting
+    build-depends:    aeson
+                    , base ^>=4.14.3.0
+                    , bytestring
+                    , cardano-api
+                    , plutus-tx
+                    , plutus-tx-plugin
+                    , plutus-ledger-api
+                    , serialise
+                    , Utilities
+                    , UtilitiesPPP
+                    
+    hs-source-dirs:   src/haskell
+    default-language: Haskell2010
+
+    ghc-options: -Wall -fobject-code -fno-ignore-interface-pragmas -fno-omit-interface-pragmas -fno-strictness -fno-spec-constr -fno-specialise -fexpose-all-unfoldings -fplugin-opt

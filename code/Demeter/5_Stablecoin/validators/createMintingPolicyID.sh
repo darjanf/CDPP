@@ -1,0 +1,1 @@
+cardano-cli transaction policyid --script-file ./minting.plutus > ./minting.policy

@@ -1,0 +1,12 @@
+{
+    "721": {
+        "a3658ae62e3f75b7114bb11c3c735916fd2f1279b8ade6c44416df37": {
+          "OracleNFT": {
+            "description": "OracleNFT for updating the pricefeed oracle",
+            "name": "OracleNFT token",
+            "id": 1,
+            "image": "ipfs://QmRhTTbUrPYEw3mJGGhQqQST9k86v1DPBiTTWJGKDJsVFw"
+          }       
+        }
+    }
+}
